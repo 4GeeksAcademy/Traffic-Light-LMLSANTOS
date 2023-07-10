@@ -1,12 +1,89 @@
 
-/* 
+.container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    
+    width: 100%;
+    height: 100vh;
+}    
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.light-wrapper {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #282828;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-*/
+.light {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background-color: #4c4c4c;
+    cursor: pointer;
+}
+
+.light.red-light.on {
+    background-color: #fe0002;
+    box-shadow: 0 0 30px #fe0002;
+    
+}
+
+.light.yellow-light.on {
+    background-color: #ffd410;
+    box-shadow: 0 0 30px #ffd410;
+}
+
+.light.green-light.on{
+    background-color: #01e924;
+    box-shadow: 0 0 30px #01e924;
+   
+}
+
+.light.purple-light.on{
+    background-color: #a02a73;
+    box-shadow: 0 0 30px white;
+   
+}
+
+.traffic-light {
+    display: flex;
+    flex-direction: column;
+    gap:24px;
+    background-color: #020202;
+    border-radius: 10px;
+    padding: 40px 24px;
+}
+
+button {
+    margin-top: 10px;
+    background-color: blue;
+    color: aliceblue;
+    padding: 20px 25px;
+    border-radius: 10px;
+    
+}
+
+.stop-cycling {
+    color: white;
+    font-size: 1rem;
+    background-color: red;
+}
+
+.start-cycling {
+    color:black;
+    font-size: 1rem;
+    background-color: #01e924;
+    box-shadow: 0 0 20px white;
+}
+
+.support {
+    height: 200px;
+    width: 25px;
+    border: 2px solid black;
+    background-color: #020202;
+    margin: auto;
+}
