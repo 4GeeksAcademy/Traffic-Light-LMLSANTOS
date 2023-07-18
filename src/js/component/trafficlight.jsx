@@ -3,61 +3,30 @@ import Light from "./light.jsx";
 
 const TrafficLight = () => {
 
-    const Lights = {
-        Red: "red",
-        Yellow: "yellow",
-        Green: "green",
-    };
-
     const [lightOn, setLightOn] = useState(null);
     const [isCycling, setIsCycling] = useState(false);
-    
-    
-    const turnOnNextLight = ()=> {
-    
-        if(lightOn === Lights.Green){
-            setLightOn(Lights.Yellow);
-            return;
-        }
-        if(lightOn === Lights.Yellow){
-            setLightOn(Lights.Red);
-            return;
-        }
-        if(lightOn === Lights.Red){
-            setLightOn(Lights.Green);
-            return;
-        }
-    };
-
-   useEffect (()=>{
-        let interval;
-
+    const [purpleOn, setPurpleOn] = useState(false);
+   
+    useEffect (()=>{
         if (isCycling) {
-            interval = setInterval(()=> {
-                turnOnNextLight();
-            },2000);
+            setTimeout(()=>{
+                handleLightClick();
+            }, 2000)
         }
-        
-        return () => {
-            return clearInterval(interval);
-        };
     },[isCycling,lightOn]);
 
+    
     const handleLightClick = () => {
-        setLightOn((prevLight) => {
-          if (prevLight === Lights.Green) {
-            return Lights.Yellow;
-          } else if (prevLight === Lights.Yellow) {
-            return Lights.Red;
-          } else {
-            return Lights.Green;
-          }
-        });
-      };
-
-      const handleCycleButtonClick = () => {
-        setIsCycling((prevIsCycling) => !prevIsCycling);
-      };
+        if(lightOn === "red") { 
+            setLightOn("yellow");
+        } else if (lightOn === "yellow") {
+            setLightOn("green");
+        } else if (purpleOn && lightOn === "green"){
+            setLightOn("purple");
+        } else {
+            setLightOn("red");
+        } 
+    }
 
     return(
         <div>
@@ -66,26 +35,43 @@ const TrafficLight = () => {
             </div>
             <div className="traffic-light">
                 <Light 
-                    color={Lights.Red} 
-                    isOn={lightOn === Lights.Red} 
-                    onClick={handleLightClick}
+                    color="red"
+                    isOn={lightOn === "red"} 
+                    changeColor={setLightOn}
                 />
                 <Light 
-                    color={Lights.Yellow} 
-                    isOn={lightOn === Lights.Yellow} 
-                    onClick={handleLightClick}
+                    color= "yellow" 
+                    isOn={lightOn === "yellow"} 
+                    changeColor={setLightOn}
                 />
                 <Light 
-                    color={Lights.Green} 
-                    isOn={lightOn === Lights.Green} 
-                    onClick={handleLightClick}
-                />  
+                    color="green"
+                    isOn={lightOn === "green"} 
+                    changeColor={setLightOn}
+                /> 
+            {purpleOn && 
+                <Light 
+                    color="purple"
+                    isOn={lightOn === "purple"} 
+                    changeColor={setLightOn}
+                /> 
+            }
             </div>
-            <button onClick={handleCycleButtonClick} 
-            className= {isCycling ? "stop-cycling": "start-cycling"}>
+            <button onClick={() => {
+                handleLightClick();
+                setIsCycling(!isCycling)} 
+            }
+                className= {isCycling ? "stop-cycling": "start-cycling"}>
                 {isCycling ? "Stop Cycling": "Start Cycling"}
-            </button> 
+            </button>
+            <div>
+                <button onClick={() => setPurpleOn(!purpleOn)}
+                    className= {purpleOn ? "stop-cycling": "start-cycling"}>
+                    {purpleOn? "turn-off-purple": "turn-on-purple"}
+                </button> 
+            </div> 
         </div>
+        
     );
 }
 
